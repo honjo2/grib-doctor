@@ -27,7 +27,7 @@ def loadRasterInfo(inputRaster):
     with rasterio.open(inputRaster, 'r') as src:
         return {
             'shape': src.shape,
-            'affine': src.affine,
+            'affine': src.transform,
             'dtype': src.meta['dtype'],
             'crs': src.crs,
             'kwargs': src.meta.copy()
@@ -83,9 +83,10 @@ def handleBands(data, snapshape):
 
 def loadBands(inputRaster, snapshape, gfs):
     import rasterio
-    with rasterio.drivers():
+    import rasterio.env
+    with rasterio.Env():
         with rasterio.open(inputRaster, 'r') as src:
             if gfs:
-                return list(handleBands(src.read_band(i), snapshape) for i in range(1, src.count + 1))
+                return list(handleBands(src.read(i), snapshape) for i in range(1, src.count + 1))
             else:
                 return list(src.read())
