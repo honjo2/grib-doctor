@@ -35,6 +35,7 @@ def upwrap_raster(inputRaster, outputRaster, bidx, bandtags):
 def smoosh_rasters(inputRasters, outputRaster, gfs, development):
     import rasterio
     import rasterio.env
+    import numpy as np
     
     # if isinstance(inputRasters, list):
     #     pass
