@@ -1,4 +1,5 @@
-import cut_splice_globewrap as csg, click
+from gribdoctor.scripts import cut_splice_globewrap as csg	
+import click
 
 @click.group()
 def cli():
