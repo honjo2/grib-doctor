@@ -5,7 +5,7 @@ import click
 def cli():
     pass
 
-@click.command('unwrap')
+@cli.command()
 @click.argument('inputgrib', type=click.Path(exists=True))
 @click.argument('output', type=click.Path(exists=False))
 @click.option('--bidx', '-b', default='all',
@@ -15,9 +15,7 @@ def cli():
 def unwrap(inputgrib, output, bidx, bandtags):
     csg.upwrap_raster(inputgrib, output, bidx, bandtags)
 
-cli.add_command(unwrap)
-
-@click.command('smoosh')
+@cli.command()
 @click.argument('inputs', type=click.Path(exists=True), nargs=-1)
 @click.argument('output', type=click.Path(exists=False), nargs=1)
 @click.option('--develoment', '-dev', is_flag=True,
@@ -28,4 +26,4 @@ def smoosh(inputs, output, develoment, unwrap):
     'stack multiple gribs of the same or varying resolutions'
     csg.smoosh_rasters(inputs, output, unwrap, develoment)
 
-cli.add_command(smoosh)
+cli()
